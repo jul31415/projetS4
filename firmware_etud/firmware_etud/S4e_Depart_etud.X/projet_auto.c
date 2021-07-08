@@ -1,5 +1,5 @@
 #include "projet_auto.h"
-
+#include "system/common/sys_common.h"
 #include <xc.h>
 #include <sys/attribs.h>
 #include <stdbool.h>
@@ -12,12 +12,43 @@
 #include "lcd.h"
 #include "ssd.h"
 #include "app_commands.h"
-#include <math.h>
 #define PI 3.141592654
 int count2= 0;
+#include <math.h>
+#include "pmods.h"
+#include "utils.h"
 
 
+//distance, pour l'instant retourne un nombre de 20us
+int read_distance()
+{
+        cpt_capt = 0;
+        int cpt_fucker = 0;
+        PMODS_SetValue(1,2,1);
+        DelayAprox10Us(0.1);
+        PMODS_SetValue(1,2,0);
+        while(PMODS_GetValue(1,3) == 0 && cpt_fucker < 1000)
+        {
+            cpt_capt = 0;
+            if (Flag_10us)
+            {
+                Flag_10us = 0;
+                cpt_fucker++;
+            }
+        }
+        while(PMODS_GetValue(1,3) == 1)
+        {
+            if (Flag_10us)
+            {
+                Flag_10us = 0;
+                cpt_capt++;
+            }
+        }
+        return cpt_capt;
+}
 
+
+//affichage termomÃ©trique des valeursde l'accÃ©lÃ©rateur
 void affichagePmodLed(int diff){
     if (diff<50){
         LED_SetGroupValue(1);
@@ -46,11 +77,10 @@ void affichagePmodLed(int diff){
 }
 
 
-
-
+//calcul des valeurs de laccÃ©lÃ©romÃ¨tre
 void projet_tasks(int accelX, int accelY, int accelZ)
 {    
-     //Filtre Moyenne Pondérée
+     //Filtre Moyenne Pondï¿½rï¿½e
     values.acl_x = accelX;
     values.weighted_x = values.weighted_x + values.acl_x;
     values.weighted_x = values.weighted_x / 2;
@@ -63,7 +93,7 @@ void projet_tasks(int accelX, int accelY, int accelZ)
     values.weighted_z = values.weighted_z + values.acl_z;
     values.weighted_z = values.weighted_z / 2;
     
-    //Calcul de la différence d'accélération
+    //Calcul de la diffï¿½rence d'accï¿½lï¿½ration
     values.acl_x_dif = values.weighted_x - values.acl_x_mem;
     values.acl_x_mem = values.weighted_x;
     values.acl_y_dif = values.weighted_y - values.acl_y_mem;
@@ -71,7 +101,7 @@ void projet_tasks(int accelX, int accelY, int accelZ)
     values.acl_z_dif = values.weighted_z - values.acl_z_mem;
     values.acl_z_mem = values.weighted_z;
     
-    //Calcul Magnitude Accélération
+    //Calcul Magnitude Accï¿½lï¿½ration
     values.acl = sqrt((values.acl_x_dif*values.acl_x_dif) + (values.acl_y_dif*values.acl_y_dif) + (values.acl_z_dif*values.acl_z_dif)); 
     affichagePmodLed(values.acl);
     
@@ -126,12 +156,16 @@ void projet_tasks(int accelX, int accelY, int accelZ)
     
     fct_btnCheck();
 } 
-    
+
+//ecriture des valeurs sur lecran
 void fct_writeText(char *string, int line, int index)
 { 
     LCD_DisplayClear();     // Clear what was previously written.
     LCD_WriteStringAtPos(string, line, index);   
 }
+
+
+
 
 void fct_writeText2(char *string, char *string2)
 { 
@@ -140,6 +174,7 @@ void fct_writeText2(char *string, char *string2)
     LCD_WriteStringAtPos(string2, 1, 0); 
 }
 
+//sÃ©lectionne l'affichage des paramÃ¨tre
 void fct_swCheck(int sw)
 {
     char buffer[0xFF];

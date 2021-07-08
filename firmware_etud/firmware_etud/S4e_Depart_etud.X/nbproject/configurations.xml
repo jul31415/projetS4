@@ -189,8 +189,10 @@
         <itemPath>../src/UDP_app.h</itemPath>
         <itemPath>../src/config.h</itemPath>
         <itemPath>../src/main.h</itemPath>
-        <itemPath>projet_auto.h</itemPath>
       </logicalFolder>
+      <itemPath>projet_auto.h</itemPath>
+      <itemPath>pmods.h</itemPath>
+      <itemPath>utils.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -352,8 +354,10 @@
         <itemPath>../src/app_commands.c</itemPath>
         <itemPath>../src/UDP_app.c</itemPath>
         <itemPath>../src/main.c</itemPath>
-        <itemPath>projet_auto.c</itemPath>
       </logicalFolder>
+      <itemPath>projet_auto.c</itemPath>
+      <itemPath>pmods.c</itemPath>
+      <itemPath>utils.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -367,6 +371,7 @@
     <Elem>..\src\default</Elem>
     <Elem>..\src\system_config\default</Elem>
     <Elem>../src/system_config/default/framework</Elem>
+    <Elem>.</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>

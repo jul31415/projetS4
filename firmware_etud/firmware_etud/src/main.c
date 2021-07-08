@@ -53,6 +53,8 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 // *****************************************************************************
 // *****************************************************************************
 
+#include <xc.h>
+#include <sys/attribs.h>
 #include "main.h"
 #include "system_config.h"
 #include "system/common/sys_module.h"   // SYS function prototypes
@@ -66,8 +68,34 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include "swt.h"
 #include "btn.h"
 #include <math.h>
+#include "projet_auto.h"
 
 
+extern int Flag_10us;
+
+
+void __ISR(_TIMER_2_VECTOR, IPL2AUTO) Timer2ISR(void) 
+{  
+   Flag_10us = 1;           //    Indique à la boucle principale qu'on doit traiter
+  
+   IFS0bits.T2IF = 0;     //    clear interrupt flag
+}
+
+#define TMR_TIME    0.001             // x us for each tick
+
+void initialize_timer_interrupt(void) { 
+  T2CONbits.TCKPS = 0;                //    256 prescaler value
+  T2CONbits.TGATE = 0;                //    not gated input (the default)
+  T2CONbits.TCS = 0;                  //    PCBLK input (the default)
+  PR2 = (int)(((float)(TMR_TIME * PB_FRQ) / 256) + 0.5);   //set period register, generates one interrupt every 1 ms
+                                      //    48 kHz * 1 ms / 256 = 188
+  TMR2 = 0;                           //    initialize count to 0
+  IPC2bits.T2IP = 2;                  //    INT step 4: priority
+  IPC2bits.T2IS = 0;                  //    subpriority
+  IFS0bits.T2IF = 0;                  //    clear interrupt flag
+  IEC0bits.T2IE = 1;                  //    enable interrupt
+  T2CONbits.ON = 1;                   //    turn on Timer5
+} 
 
 // *****************************************************************************
 // *****************************************************************************
@@ -207,7 +235,9 @@ void MAIN_Initialize ( void )
     mainData.state = MAIN_STATE_INIT;
 
     mainData.handleUSART0 = DRV_HANDLE_INVALID;
-
+    initialize_timer_interrupt();
+    PMODS_InitPin(1,2,0,0,0);
+    PMODS_InitPin(1,3,1,0,0);
     UDP_Initialize();
     LCD_Init();
     ACL_Init();
@@ -286,6 +316,7 @@ int main(void) {
 
     return 0;
 }
+
 
 
 /*******************************************************************************

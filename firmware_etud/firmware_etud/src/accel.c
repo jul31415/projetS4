@@ -58,6 +58,7 @@
 */
 uint8_t accel_buffer[accel_buf_length]; //the buffer for reading the acceleration values
 bool accel_data_ready; //a flag!
+extern int distance;
 
 void ACL_Init()
 {
@@ -71,7 +72,7 @@ void ACL_Init()
     ACL_SetRegister(ACL_CTRL_REG4, 1);        // Output data rate at 800Hz, no auto wake, no auto scale adjust, no fast read mode
     ACL_SetRegister(ACL_CTRL_REG5, 0);        // Output data rate at 800Hz, no auto wake, no auto scale adjust, no fast read mode
     ACL_GetRegister(ACL_INT_SOURCE);
-    ACL_SetRegister(ACL_CTRL_REG1, 0x38);        // Output data rate at 800Hz, no auto wake, no auto scale adjust, no fast read mode
+    //ACL_SetRegister(ACL_CTRL_REG1, 0x38);        // Output data rate at 800Hz, no auto wake, no auto scale adjust, no fast read mode
     ACL_SetRegister(ACL_CTRL_REG1, 0x29);        // Output data rate at 800Hz, no auto wake, no auto scale adjust, no fast read mode
 }
 
@@ -109,6 +110,7 @@ void accel_tasks()
     	accelZ = ((signed int) accel_buffer[4]<<24)>>20  | accel_buffer[5] >> 4; //VR
         SYS_CONSOLE_PRINT("%d,%d,%d\r\n", accelX, accelY, accelZ);
         projet_tasks(accelX, accelY, accelZ);
+        distance = read_distance();
 
     if(SWITCH1StateGet())
     {
