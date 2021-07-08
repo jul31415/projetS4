@@ -198,9 +198,9 @@ void PROJET_Tasks(int accelX, int accelY, int accelZ)
     values.acl_y_mem = values.acl_y;
     values.acl_z_dif = values.acl_z - values.acl_z_mem;
     values.acl_z_mem = values.acl_z;
-
+    
     values.acl = sqrt((values.acl_x_dif*values.acl_x_dif) + (values.acl_y_dif*values.acl_y_dif) + (values.acl_z_dif*values.acl_z_dif)); 
-
+    affichagePmodLed(values.acl);
     values.weighted_avg = values.weighted_avg * (35/36);
     values.weighted_avg = values.weighted_avg + values.acl;
     

@@ -40,7 +40,7 @@
 
 /* ************************************************************************** */
 
-
+void affichagePmodLed(int diff);
 float fGRangeLSB;   // global variable used to pre-compute the value in g corresponding to each count of the raw value
 
 /* ------------------------------------------------------------ */
@@ -373,3 +373,29 @@ void ACL_Close()
 /* *****************************************************************************
  End of File
  */
+void affichagePmodLed(int diff){
+    if (diff<100){
+        LED_SetGroupValue(1);
+    }
+    else if (diff<200){
+        LED_SetGroupValue(3);
+    }
+    else if (diff<300){
+        LED_SetGroupValue(7);
+    }
+    else if (diff<400){
+        LED_SetGroupValue(15);
+    }
+    else if (diff<500){
+        LED_SetGroupValue(31);
+    }
+    else if (diff<600){
+        LED_SetGroupValue(63);
+    }
+    else if (diff<700){
+        LED_SetGroupValue(127);
+    }
+    else if (diff>=700){
+        LED_SetGroupValue(255);
+    }
+}
