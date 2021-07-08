@@ -222,7 +222,7 @@ void PROJET_Tasks(int accelX, int accelY, int accelZ)
 static unsigned long int counter=0;
 static void LedTask(void) {
     if(counter++ == 20000){
-        LED_ToggleValue(1);
+        //LED_ToggleValue(1);
         counter = 0;
     }  
 }
@@ -313,7 +313,6 @@ void MAIN_Tasks ( void )
             UDP_Tasks();
             ManageSwitches();
             JB1Toggle();
-            LED0Toggle();
             break;
         }
 
@@ -388,6 +387,10 @@ void fct_swCheck(int sw)
 
         case (64): //weighted_avg
             sprintf(buffer, "AVG:%d", values.weighted_avg);
+            break;
+            
+        default:
+            sprintf(buffer, "Time :%.2d:%.2d:%.2d", values.current_time.hour, values.current_time.minute, values.current_time.second);
             break;
     }
     fct_writeText(buffer, 0, 0); 

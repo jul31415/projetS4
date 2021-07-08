@@ -374,28 +374,28 @@ void ACL_Close()
  End of File
  */
 void affichagePmodLed(int diff){
-    if (diff<100){
+    if (diff<50){
         LED_SetGroupValue(1);
     }
-    else if (diff<200){
+    else if (diff<100){
         LED_SetGroupValue(3);
     }
-    else if (diff<300){
+    else if (diff<150){
         LED_SetGroupValue(7);
     }
-    else if (diff<400){
+    else if (diff<200){
         LED_SetGroupValue(15);
     }
-    else if (diff<500){
+    else if (diff<250){
         LED_SetGroupValue(31);
     }
-    else if (diff<600){
+    else if (diff<300){
         LED_SetGroupValue(63);
     }
-    else if (diff<700){
+    else if (diff<350){
         LED_SetGroupValue(127);
     }
-    else if (diff>=700){
+    else if (diff>=400){
         LED_SetGroupValue(255);
     }
 }
