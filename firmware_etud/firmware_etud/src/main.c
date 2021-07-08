@@ -64,6 +64,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include "lcd.h"
 #include "app_commands.h"
 #include "swt.h"
+#include "btn.h"
 #include <math.h>
 
 
@@ -212,6 +213,7 @@ void MAIN_Initialize ( void )
     ACL_Init();
     SSD_Init();
     SWT_Init();
+    BTN_Init();
 }
 
 

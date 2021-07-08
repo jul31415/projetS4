@@ -14,6 +14,7 @@
 #include "app_commands.h"
 #include <math.h>
 #define PI 3.141592654
+int count2= 0;
 
 
 
@@ -48,7 +49,7 @@ void affichagePmodLed(int diff){
 
 
 void projet_tasks(int accelX, int accelY, int accelZ)
-{
+{    
      //Filtre Moyenne Pondérée
     values.acl_x = accelX;
     values.weighted_x = values.weighted_x + values.acl_x;
@@ -105,17 +106,25 @@ void projet_tasks(int accelX, int accelY, int accelZ)
         }
     }
     
-    int count;
     
     
     //Calcul de la vitesse
     //ACL_ConvertRawToValueG(values.acl);
-    //values.speed = (values.acl * 0.640) - values.speed_mem;
-    //values.speed_mem = values.speed;
-            
+    values.speed_x = (values.acl_x_dif * 0.640) + values.speed_mem_x;
+    values.speed_mem_x = values.speed_x;
     
-
-    fct_swCheck(SWT_GetGroupValue());  //Affichage selon les switchs
+    values.speed_y = (values.acl_y_dif * 0.640) + values.speed_mem_y;
+    values.speed_mem_y = values.speed_y;
+            
+    if (count2 == 6)
+    {
+        count2 = 0;
+        fct_swCheck(SWT_GetGroupValue());  //Affichage selon les switchs
+    }
+    count2++;
+    
+    
+    fct_btnCheck();
 } 
     
 void fct_writeText(char *string, int line, int index)
@@ -171,8 +180,8 @@ void fct_swCheck(int sw)
             break;
             
         case (128): //Speed
-            sprintf(buffer, "Speed:%f", (float)values.speed);
-            sprintf(buffer2, "");
+            sprintf(buffer, "SpeedX:%d", values.speed_x);
+            sprintf(buffer2,"SpeedY:%d", values.speed_y);
             break;
                
         default:
@@ -180,6 +189,44 @@ void fct_swCheck(int sw)
             break;
     }
     fct_writeText2(buffer, buffer2); 
+}
+
+void fct_btnCheck(void)
+{
+    int BTN_value = BTN_GetGroupValue();
+
+    if (BTN_value == 16)  //DOWN
+    {
+        values.speed_mem_x = 0;
+        values.speed_x = 0;
+        values.speed_mem_y = 0;
+        values.speed_y = 0;
+        
+        while (BTN_GetGroupValue() == 16){};
+    }
+
+    else if (BTN_value == 8)   //RIGHT
+    {
+        
+        while (BTN_GetGroupValue() == 8){};
+    }   
+
+    else if (BTN_value == 4)  //CENTER
+    {
+        while (BTN_GetGroupValue() == 4){};
+    }  
+
+    else if (BTN_value == 2) //LEFT
+    {
+        
+        while (BTN_GetGroupValue() == 2){};
+    }  
+
+    else if (BTN_value == 1)  //UP
+    {
+        
+        while (BTN_GetGroupValue() == 1){};
+    }
 }
 
 /* *****************************************************************************

@@ -72,7 +72,7 @@ void ACL_Init()
     ACL_SetRegister(ACL_CTRL_REG5, 0);        // Output data rate at 800Hz, no auto wake, no auto scale adjust, no fast read mode
     ACL_GetRegister(ACL_INT_SOURCE);
     ACL_SetRegister(ACL_CTRL_REG1, 0x38);        // Output data rate at 800Hz, no auto wake, no auto scale adjust, no fast read mode
-    ACL_SetRegister(ACL_CTRL_REG1, 0x39);        // Output data rate at 800Hz, no auto wake, no auto scale adjust, no fast read mode
+    ACL_SetRegister(ACL_CTRL_REG1, 0x29);        // Output data rate at 800Hz, no auto wake, no auto scale adjust, no fast read mode
 }
 
 /* ------------------------------------------------------------ */

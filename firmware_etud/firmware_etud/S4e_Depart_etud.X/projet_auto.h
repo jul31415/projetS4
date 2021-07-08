@@ -38,8 +38,11 @@ struct values{
     double theta;  //Vertical
     double phi;    //Horizontale
     
-    int speed;
-    int speed_mem;
+    int speed_x;
+    int speed_mem_x;
+    
+    int speed_y;
+    int speed_mem_y;
     
     int indice_eco;
 };
@@ -52,6 +55,7 @@ float fGRangeLSB;   // global variable used to pre-compute the value in g corres
 void affichagePmodLed(int diff);float fGRangeLSB;   // global variable used to pre-compute the value in g corresponding to each count of the raw value
 void fct_writeText(char *string, int line, int index);
 void fct_swCheck(int sw);
+void fct_btnCheck(void);
 void projet_tasks(int accelX, int accelY, int accelZ);
 void fct_writeText2(char *string, char *string2);
 

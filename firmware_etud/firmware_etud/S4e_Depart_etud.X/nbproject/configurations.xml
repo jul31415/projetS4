@@ -12,6 +12,7 @@
           <itemPath>../src/i2c.h</itemPath>
           <itemPath>../src/lcd.h</itemPath>
           <itemPath>../src/swt.h</itemPath>
+          <itemPath>../src/btn.h</itemPath>
         </logicalFolder>
         <logicalFolder name="f1" displayName="system_config" projectFiles="true">
           <logicalFolder name="f1" displayName="default" projectFiles="true">
@@ -206,6 +207,7 @@
           <itemPath>../src/i2c.c</itemPath>
           <itemPath>../src/lcd.c</itemPath>
           <itemPath>../src/swt.c</itemPath>
+          <itemPath>../src/btn.c</itemPath>
         </logicalFolder>
         <logicalFolder name="f1" displayName="system_config" projectFiles="true">
           <logicalFolder name="f1" displayName="default" projectFiles="true">
@@ -377,7 +379,7 @@
         <platformTool>PK3OBPlatformTool</platformTool>
         <languageToolchain>XC32</languageToolchain>
         <languageToolchainVersion>2.50</languageToolchainVersion>
-        <platform>2</platform>
+        <platform>3</platform>
       </toolsSet>
       <packs>
         <pack name="PIC32MX_DFP" vendor="Microchip" version="1.3.231"/>
