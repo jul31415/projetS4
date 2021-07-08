@@ -37,11 +37,10 @@
 #include "lcd.h"
 #include "ssd.h"
 #include "app_commands.h"
+#include "projet_auto.h"
 
 /* ************************************************************************** */
 
-void affichagePmodLed(int diff);
-float fGRangeLSB;   // global variable used to pre-compute the value in g corresponding to each count of the raw value
 
 /* ------------------------------------------------------------ */
 /***	ACL_Init
@@ -109,7 +108,7 @@ void accel_tasks()
     	accelY = ((signed int) accel_buffer[2]<<24)>>20  | accel_buffer[3] >> 4; //VR
     	accelZ = ((signed int) accel_buffer[4]<<24)>>20  | accel_buffer[5] >> 4; //VR
         SYS_CONSOLE_PRINT("%d,%d,%d\r\n", accelX, accelY, accelZ);
-        PROJET_Tasks(accelX, accelY, accelZ);
+        projet_tasks(accelX, accelY, accelZ);
 
     if(SWITCH1StateGet())
     {
@@ -373,29 +372,3 @@ void ACL_Close()
 /* *****************************************************************************
  End of File
  */
-void affichagePmodLed(int diff){
-    if (diff<50){
-        LED_SetGroupValue(1);
-    }
-    else if (diff<100){
-        LED_SetGroupValue(3);
-    }
-    else if (diff<150){
-        LED_SetGroupValue(7);
-    }
-    else if (diff<200){
-        LED_SetGroupValue(15);
-    }
-    else if (diff<250){
-        LED_SetGroupValue(31);
-    }
-    else if (diff<300){
-        LED_SetGroupValue(63);
-    }
-    else if (diff<350){
-        LED_SetGroupValue(127);
-    }
-    else if (diff>=400){
-        LED_SetGroupValue(255);
-    }
-}
