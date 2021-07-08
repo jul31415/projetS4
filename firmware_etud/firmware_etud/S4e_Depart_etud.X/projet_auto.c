@@ -12,6 +12,7 @@
 #include "lcd.h"
 #include "ssd.h"
 #include "app_commands.h"
+#include <math.h>
 
 
 
