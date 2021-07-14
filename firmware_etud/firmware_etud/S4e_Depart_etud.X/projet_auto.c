@@ -17,35 +17,10 @@ int count2= 0;
 #include <math.h>
 #include "pmods.h"
 #include "utils.h"
+#include "btn.h"
+#include "swt.h"
+#include "led.h"
 
-
-//distance, pour l'instant retourne un nombre de 20us
-int read_distance()
-{
-        cpt_capt = 0;
-        int cpt_fucker = 0;
-        PMODS_SetValue(1,2,1);
-        DelayAprox10Us(0.1);
-        PMODS_SetValue(1,2,0);
-        while(PMODS_GetValue(1,3) == 0 && cpt_fucker < 1000)
-        {
-            cpt_capt = 0;
-            if (Flag_10us)
-            {
-                Flag_10us = 0;
-                cpt_fucker++;
-            }
-        }
-        while(PMODS_GetValue(1,3) == 1)
-        {
-            if (Flag_10us)
-            {
-                Flag_10us = 0;
-                cpt_capt++;
-            }
-        }
-        return cpt_capt;
-}
 
 
 //affichage termométrique des valeursde l'accélérateur
@@ -183,7 +158,7 @@ void fct_swCheck(int sw)
     {
         case (1):  //Time
             sprintf(buffer, "Time :%.2d:%.2d:%.2d", values.current_time.hour, values.current_time.minute, values.current_time.second);
-            sprintf(buffer2, "");
+            sprintf(buffer2, " ");
             break;
 
         case (2): //Accelerometre x y z
@@ -222,7 +197,7 @@ void fct_swCheck(int sw)
             
         case (129): //Distance
             sprintf(buffer, "Distance:%d", values.distance);
-            sprintf(buffer2,"");
+            sprintf(buffer2," ");
             break;
                
         default:
