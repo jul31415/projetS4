@@ -183,6 +183,7 @@ void fct_swCheck(int sw)
     {
         case (1):  //Time
             sprintf(buffer, "Time :%.2d:%.2d:%.2d", values.current_time.hour, values.current_time.minute, values.current_time.second);
+            sprintf(buffer2, "");
             break;
 
         case (2): //Accelerometre x y z
@@ -217,6 +218,11 @@ void fct_swCheck(int sw)
         case (128): //Speed
             sprintf(buffer, "SpeedX:%d", values.speed_x);
             sprintf(buffer2,"SpeedY:%d", values.speed_y);
+            break;
+            
+        case (129): //Distance
+            sprintf(buffer, "Distance:%d", values.distance);
+            sprintf(buffer2,"");
             break;
                
         default:
@@ -261,6 +267,68 @@ void fct_btnCheck(void)
     {
         
         while (BTN_GetGroupValue() == 1){};
+    }
+}
+
+int read_distance(void)
+{
+    int cpt_distance = 0;
+    //int final_distance = 0;
+    int stuck = 0;
+    PMODS_SetValue(1, 2, 1);
+    delay1us(10);
+    PMODS_SetValue(1, 2, 0);
+    while (PMODS_GetValue(1, 3) == 0)// && stuck < 1000000)
+    {
+        stuck ++;
+    }
+    while (PMODS_GetValue(1, 3) == 1)
+    {
+        cpt_distance++;
+        delay1us(5);
+    }
+    
+//    if (stuck == 1000000)
+//    {
+//        values.distance = -1;
+//        return(-1);
+//    }
+
+   // final_distance = cpt_distance * 5 * 0,034/2;   //Distance = duration * 0,034/2
+    values.distance = cpt_distance / 17;
+    return(values.distance);
+}
+
+void manage_time(void)
+{
+    counter_time ++;
+    
+    if (counter_time == 12)
+    {
+        values.current_time.second ++;
+    }
+    
+    if (counter_time == 25)
+    {
+        counter_time = 0;
+        values.current_time.second ++;
+    }
+    
+    if (values.current_time.second == 60)
+    {
+        values.current_time.second = 0;
+        values.current_time.minute ++;
+    }
+
+    if (values.current_time.minute == 60)
+    {
+        values.current_time.minute = 0;
+        values.current_time.hour ++;
+    }
+
+    if (values.current_time.hour == 24)
+    {
+        values.current_time.hour = 0;
     }
 }
 

@@ -246,6 +246,8 @@ void MAIN_Initialize ( void )
     SSD_Init();
     SWT_Init();
     BTN_Init();
+    PMODS_InitPin(1, 3, 1, 0, 0);
+    PMODS_InitPin(1, 2, 0, 0, 0);
 }
 
 

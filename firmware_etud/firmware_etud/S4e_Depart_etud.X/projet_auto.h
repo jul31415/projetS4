@@ -46,6 +46,8 @@ struct values{
     int speed_mem_y;
     
     int indice_eco;
+    
+    int distance;
 };
 
 struct values values;
@@ -60,7 +62,10 @@ void fct_swCheck(int sw);
 void fct_btnCheck(void);
 void projet_tasks(int accelX, int accelY, int accelZ);
 void fct_writeText2(char *string, char *string2);
-int read_distance();
+int read_distance(void);
+void manage_time(void);
+
+int counter_time = 0;
 
 
 

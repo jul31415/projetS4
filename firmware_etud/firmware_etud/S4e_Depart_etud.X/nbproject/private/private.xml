@@ -3,17 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< Updated upstream
             <file>file:/U:/projetS4/firmware_etud/firmware_etud/S4e_Depart_etud.X/projet_auto.c</file>
-            <file>file:/U:/projetS4/firmware_etud/firmware_etud/S4e_Depart_etud.X/projet_auto.h</file>
-=======
-            <file>file:/U:/Projet_S4/projetS4/firmware_etud/firmware_etud/src/system_config/default/system_interrupt.c</file>
-            <file>file:/U:/Projet_S4/projetS4/firmware_etud/firmware_etud/src/accel.c</file>
-            <file>file:/U:/Projet_S4/projetS4/firmware_etud/firmware_etud/S4e_Depart_etud.X/projet_auto.h</file>
-            <file>file:/U:/Projet_S4/projetS4/firmware_etud/firmware_etud/src/main.c</file>
-            <file>file:/U:/Projet_S4/projetS4/firmware_etud/firmware_etud/S4e_Depart_etud.X/pmods.c</file>
-            <file>file:/U:/Projet_S4/projetS4/firmware_etud/firmware_etud/S4e_Depart_etud.X/projet_auto.c</file>
->>>>>>> Stashed changes
+            <file>file:/U:/projetS4/firmware_etud/firmware_etud/src/led.h</file>
+            <file>file:/U:/projetS4/firmware_etud/firmware_etud/src/main.c</file>
+            <file>file:/U:/projetS4/firmware_etud/firmware_etud/src/system_config/default/framework/driver/spi/src/dynamic/drv_spi.c</file>
         </group>
     </open-files>
 </project-private>

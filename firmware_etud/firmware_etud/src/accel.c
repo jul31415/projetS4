@@ -36,6 +36,7 @@
 #include "accel.h"
 #include "system_definitions.h"
 #include <stdio.h>
+#include <stdlib.h>
 #include "lcd.h"
 #include "ssd.h"
 #include "app_commands.h"
@@ -60,7 +61,8 @@
 */
 uint8_t accel_buffer[accel_buf_length]; //the buffer for reading the acceleration values
 bool accel_data_ready; //a flag!
-int distance;
+int paquet_donnees[40];
+int index_packet = 0;
 
 void ACL_Init()
 {
@@ -112,7 +114,17 @@ void accel_tasks()
     	accelZ = ((signed int) accel_buffer[4]<<24)>>20  | accel_buffer[5] >> 4; //VR
         SYS_CONSOLE_PRINT("%d,%d,%d\r\n", accelX, accelY, accelZ);
         projet_tasks(accelX, accelY, accelZ);
-        distance = read_distance();
+      
+        manage_time();
+        
+        paquet_donnees[index_packet] = read_distance();
+        index_packet++;
+        if (index_packet == 40)
+        {
+            index_packet = 0;
+            UDP_Send_Packet = 1;
+        }
+        
 
     if(SWITCH1StateGet())
     {
