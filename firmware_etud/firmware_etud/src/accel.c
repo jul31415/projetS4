@@ -25,6 +25,8 @@
 /* ************************************************************************** */
 /* Section: Included Files                                                    */
 /* ************************************************************************** */
+
+#include "projet_auto.h"
 #include <xc.h>
 #include <sys/attribs.h>
 #include <stdbool.h>
@@ -37,7 +39,7 @@
 #include "lcd.h"
 #include "ssd.h"
 #include "app_commands.h"
-#include "projet_auto.h"
+
 
 /* ************************************************************************** */
 
@@ -58,7 +60,7 @@
 */
 uint8_t accel_buffer[accel_buf_length]; //the buffer for reading the acceleration values
 bool accel_data_ready; //a flag!
-extern int distance;
+int distance;
 
 void ACL_Init()
 {

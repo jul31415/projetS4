@@ -53,6 +53,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 // *****************************************************************************
 // *****************************************************************************
 
+#include "projet_auto.h"
 #include <xc.h>
 #include <sys/attribs.h>
 #include "main.h"
@@ -68,7 +69,8 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include "swt.h"
 #include "btn.h"
 #include <math.h>
-#include "projet_auto.h"
+
+#include "pmods.h"
 
 
 extern int Flag_10us;
