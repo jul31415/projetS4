@@ -117,7 +117,7 @@ UDP_DATA appData;
   Remarks:
     See prototype in app.h.
  */
-
+int commencer =0;
 void UDP_Initialize ( void )
 {
     appData.clientState = UDP_TCPIP_WAIT_INIT;
@@ -144,9 +144,11 @@ void _UDP_ClientTasks()
                     IPV4_ADDR addr;
                     TCPIP_Helper_StringToIPAddress(UDP_Hostname_Buffer, &addr);
                     uint16_t port = atoi(UDP_Port_Buffer);
+                    if (!commencer){
                     appData.clientSocket = TCPIP_UDP_ClientOpen(IP_ADDRESS_TYPE_IPV4,
                             port,
                             (IP_MULTI_ADDRESS*) & addr);
+                    }
                     if (appData.clientSocket == INVALID_SOCKET) {
                         SYS_CONSOLE_MESSAGE("\r\nClient: Could not start connection\r\n");
                         appData.clientState = UDP_TCPIP_WAITING_FOR_COMMAND;
@@ -210,11 +212,12 @@ void _UDP_ClientTasks()
                 break;
             }
             SYS_CONSOLE_PRINT("Avail %d\r\n", TCPIP_UDP_PutIsReady(appData.clientSocket));
-            UDP_bytes_to_send = strlen(UDP_Send_Buffer);
+            UDP_bytes_to_send = 484; //strlen(UDP_Send_Buffer);
             SYS_CONSOLE_PRINT("Client: Sending %s", UDP_Send_Buffer);
             TCPIP_UDP_ArrayPut(appData.clientSocket, (uint8_t*)UDP_Send_Buffer, UDP_bytes_to_send);
             TCPIP_UDP_Flush(appData.clientSocket);
-            appData.clientState = UDP_TCPIP_WAIT_FOR_RESPONSE;
+            appData.clientState = UDP_TCPIP_WAITING_FOR_COMMAND;//UDP_TCPIP_WAIT_FOR_RESPONSE;
+            commencer = 1;
             appData.mTimeOut = SYS_TMR_SystemCountGet() + SYS_TMR_SystemCountFrequencyGet();
             //SYS_CONSOLE_PRINT("Client: Timeout %lu\n\r", appData.mTimeOut);
         }
@@ -249,8 +252,9 @@ void _UDP_ClientTasks()
                 UDP_Receive_Buffer[UDP_bytes_received] = '\0';    //append a null to display strings properly
                 SYS_CONSOLE_PRINT("\r\nClient: Client received %s\r\n", UDP_Receive_Buffer);
                 appData.clientState = UDP_TCPIP_WAITING_FOR_COMMAND;
-                TCPIP_UDP_Close(appData.clientSocket);
-                SYS_CONSOLE_MESSAGE("\r\nClient: Closing connection\r\n");
+                commencer = 1;
+//                TCPIP_UDP_Close(appData.clientSocket);
+                //SYS_CONSOLE_MESSAGE("\r\nClient: Closing connection\r\n");
             }
         }
         break;

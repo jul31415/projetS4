@@ -285,7 +285,9 @@ int main(void) {
     MAIN_Initialize();
     SYS_INT_Enable();
     SSD_WriteDigitsGrouped(0x0000,0x1);
-   
+    strcpy(UDP_Hostname_Buffer,"192.168.0.2");
+    strcpy(UDP_Port_Buffer,"8080");
+    
     while (1) {
         SYS_Tasks();
         MAIN_Tasks();

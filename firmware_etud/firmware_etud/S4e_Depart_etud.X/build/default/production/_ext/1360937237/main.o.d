@@ -1,5 +1,6 @@
 build/default/production/_ext/1360937237/main.o: ../src/main.c \
- ../src/main.h ../src/system_config/default/system_config.h ../src/bsp.h \
+ ../src/projet_auto.h ../src/main.h \
+ ../src/system_config/default/system_config.h ../src/bsp.h \
  ../src/system_config/default/framework/peripheral/ports/plib_ports.h \
  ../src/system_config/default/framework/peripheral/ports/processor/ports_processor.h \
  ../src/system_config/default/framework/peripheral/ports/processor/ports_p32xxxx.h \
@@ -365,11 +366,9 @@ build/default/production/_ext/1360937237/main.o: ../src/main.c \
  ../src/system_config/default/framework/driver/spi/src/drv_spi_variant_mapping.h \
  ../src/UDP_app.h ../src/led.h ../src/config.h ../src/ssd.h \
  ../src/accel.h ../src/lcd.h ../src/app_commands.h ../src/swt.h \
-<<<<<<< Updated upstream
- ../src/btn.h
-=======
- ../src/projet_auto.h
->>>>>>> Stashed changes
+ ../src/btn.h ../src/pmods.h
+
+../src/projet_auto.h:
 
 ../src/main.h:
 
@@ -1119,8 +1118,6 @@ build/default/production/_ext/1360937237/main.o: ../src/main.c \
 
 ../src/swt.h:
 
-<<<<<<< Updated upstream
 ../src/btn.h:
-=======
-../src/projet_auto.h:
->>>>>>> Stashed changes
+
+../src/pmods.h:

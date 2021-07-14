@@ -1,7 +1,7 @@
 build/default/debug/projet_auto.o: projet_auto.c projet_auto.h \
+ ../src/system_config/default/framework/system/common/sys_common.h \
  ../src/config.h ../src/i2c.h ../src/accel.h \
  ../src/system_config/default/system_definitions.h \
- ../src/system_config/default/framework/system/common/sys_common.h \
  ../src/system_config/default/framework/system/common/sys_module.h \
  ../src/system_config/default/framework/system/devcon/sys_devcon.h \
  ../src/system_config/default/framework/system/system.h \
@@ -357,9 +357,12 @@ build/default/debug/projet_auto.o: projet_auto.c projet_auto.h \
  ../src/system_config/default/framework/tcpip/tcpip_commands.h \
  ../src/system_config/default/framework/tcpip/tftps.h \
  ../src/system_config/default/framework/driver/ethmac/drv_ethmac.h \
- ../src/main.h ../src/lcd.h ../src/ssd.h ../src/app_commands.h
+ ../src/main.h ../src/lcd.h ../src/ssd.h ../src/app_commands.h pmods.h \
+ utils.h ../src/btn.h ../src/swt.h ../src/led.h ../src/config.h
 
 projet_auto.h:
+
+../src/system_config/default/framework/system/common/sys_common.h:
 
 ../src/config.h:
 
@@ -368,8 +371,6 @@ projet_auto.h:
 ../src/accel.h:
 
 ../src/system_config/default/system_definitions.h:
-
-../src/system_config/default/framework/system/common/sys_common.h:
 
 ../src/system_config/default/framework/system/common/sys_module.h:
 
@@ -1090,3 +1091,15 @@ projet_auto.h:
 ../src/ssd.h:
 
 ../src/app_commands.h:
+
+pmods.h:
+
+utils.h:
+
+../src/btn.h:
+
+../src/swt.h:
+
+../src/led.h:
+
+../src/config.h:
