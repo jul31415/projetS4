@@ -12,8 +12,6 @@
 #include "lcd.h"
 #include "ssd.h"
 #include "app_commands.h"
-#define PI 3.141592654
-int count2= 0;
 #include <math.h>
 #include "pmods.h"
 #include "utils.h"
@@ -25,29 +23,38 @@ int count2= 0;
 
 //affichage termométrique des valeursde l'accélérateur
 void affichagePmodLed(int diff){
+    compteur_eco++;
     if (diff<50){
         LED_SetGroupValue(1);
+        values.indice_eco+=1*7;
     }
     else if (diff<100){
         LED_SetGroupValue(3);
+        values.indice_eco+=4*7;
     }
     else if (diff<150){
         LED_SetGroupValue(7);
+        values.indice_eco+=5*7;
     }
     else if (diff<200){
         LED_SetGroupValue(15);
+        values.indice_eco+=10*7;
     }
     else if (diff<250){
         LED_SetGroupValue(31);
+        values.indice_eco+=20*7;
     }
     else if (diff<300){
         LED_SetGroupValue(63);
+        values.indice_eco+=40*7;
     }
     else if (diff<350){
         LED_SetGroupValue(127);
+        values.indice_eco+=80*7;
     }
     else if (diff>=400){
         LED_SetGroupValue(255);
+        values.indice_eco+=180*7;
     }
 }
 
@@ -156,6 +163,10 @@ void fct_swCheck(int sw)
     char buffer2[0xFF];
     switch (sw)
     {
+        case(0)://indice �colo
+            sprintf(buffer, "Indice ecolo:");
+            sprintf(buffer2, "%d",values.indice_eco/compteur_eco);
+            break;
         case (1):  //Time
             sprintf(buffer, "Time :%.2d:%.2d:%.2d", values.current_time.hour, values.current_time.minute, values.current_time.second);
             sprintf(buffer2, " ");

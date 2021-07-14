@@ -9,6 +9,7 @@
 #define	PROJET_AUTO_H
 
 #define TMR_TIME    0.001             // x us for each tick
+#define PI 3.141592654
 
 struct time{
     int hour;
@@ -48,6 +49,7 @@ struct values{
     int indice_eco;
     
     int distance;
+    
 };
 
 struct values values;
@@ -55,6 +57,9 @@ float fGRangeLSB;   // global variable used to pre-compute the value in g corres
 int Flag_10us = 0;
 int cpt_capt = 0;
 int distance = 0;
+int counter_time = 0;
+int count2= 0;
+int compteur_eco = 0;
 
 void affichagePmodLed(int diff);float fGRangeLSB;   // global variable used to pre-compute the value in g corresponding to each count of the raw value
 void fct_writeText(char *string, int line, int index);
@@ -65,7 +70,6 @@ void fct_writeText2(char *string, char *string2);
 int read_distance(void);
 void manage_time(void);
 
-int counter_time = 0;
 
 
 
