@@ -235,7 +235,32 @@ void fct_btnCheck(void)
 
     else if (BTN_value == 8)   //RIGHT
     {
+        fct_writeText2("Clearing Flash !", " ");
+        SPIFLASH_EraseAll();
+        iflash = 0;
+        iflash_interne = 0;
         
+        
+    
+        values.current_time.second += 10;
+
+        if (values.current_time.second >= 60)
+        {
+            values.current_time.second -= 60;
+            values.current_time.minute ++;
+        }
+
+        if (values.current_time.minute == 60)
+        {
+            values.current_time.minute = 0;
+            values.current_time.hour ++;
+        }
+
+        if (values.current_time.hour == 24)
+        {
+            values.current_time.hour = 0;
+        }
+
         while (BTN_GetGroupValue() == 8){};
     }   
 
@@ -297,12 +322,14 @@ void manage_time(void)
     if (counter_time == 12)
     {
         values.current_time.second ++;
+        values.time++;
     }
     
     if (counter_time == 25)
     {
         counter_time = 0;
         values.current_time.second ++;
+        values.time++;
     }
     
     if (values.current_time.second == 60)
@@ -320,6 +347,52 @@ void manage_time(void)
     if (values.current_time.hour == 24)
     {
         values.current_time.hour = 0;
+    }
+}
+
+
+void write_flash(void)
+{
+    paquet_flash[iflash*4 + 4] = values.acl >> 24 & 0xff;  //module accélération
+    paquet_flash[iflash*4 + 5] = values.acl >> 16 & 0xff; 
+    paquet_flash[iflash*4 + 6] = values.acl >> 8 & 0xff;
+    paquet_flash[iflash*4 + 7] = values.acl >> 0 & 0xff;
+    
+            
+    paquet_flash[iflash*4 + 44] = (int)values.phi >> 24 & 0xff;//orientation horizontale
+    paquet_flash[iflash*4 + 45] = (int)values.phi >> 16 & 0xff; 
+    paquet_flash[iflash*4 + 46] = (int)values.phi >> 8 & 0xff;
+    paquet_flash[iflash*4 + 47] = (int)values.phi >> 0 & 0xff;
+            
+    paquet_flash[iflash*4 + 84] = (int)values.theta >> 24 & 0xff; //orientation verticale
+    paquet_flash[iflash*4 + 85] = (int)values.theta >> 16 & 0xff; 
+    paquet_flash[iflash*4 + 86] = (int)values.theta >> 8 & 0xff;
+    paquet_flash[iflash*4 + 87] = (int)values.theta >> 0 & 0xff;
+     
+            
+    paquet_flash[iflash*4 + 124] = values.speed_x >> 24 & 0xff; //vitesse
+    paquet_flash[iflash*4 + 125] = values.speed_x >> 16 & 0xff; 
+    paquet_flash[iflash*4 + 126] = values.speed_x >> 8 & 0xff;
+    paquet_flash[iflash*4 + 127] = values.speed_x >> 0 & 0xff;
+            
+    paquet_flash[iflash*4 + 164] = values.indice_eco >> 24 & 0xff; //indice écologique
+    paquet_flash[iflash*4 + 165] = values.indice_eco >> 16 & 0xff; 
+    paquet_flash[iflash*4 + 166] = values.indice_eco >> 8 & 0xff;
+    paquet_flash[iflash*4 + 167] = values.indice_eco >> 0 & 0xff;
+    
+    iflash++;
+    
+    if(iflash == 10)  // send
+    {
+        paquet_flash[0] = values.time >> 24 & 0xff; //indice de temps
+        paquet_flash[1] = values.time >> 16 & 0xff; 
+        paquet_flash[2] = values.time >> 8 & 0xff;
+        paquet_flash[3] = values.time >> 0 & 0xff;
+        
+        SPIFLASH_ProgramPage(iflash_interne, paquet_flash, 204);
+        iflash_interne += 204;
+
+        iflash = 0;
     }
 }
 

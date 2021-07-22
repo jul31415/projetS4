@@ -112,14 +112,16 @@ void accel_tasks()
     	accelX = ((signed int) accel_buffer[0]<<24)>>20  | accel_buffer[1] >> 4; //VR
     	accelY = ((signed int) accel_buffer[2]<<24)>>20  | accel_buffer[3] >> 4; //VR
     	accelZ = ((signed int) accel_buffer[4]<<24)>>20  | accel_buffer[5] >> 4; //VR
+        
         projet_tasks(accelX, accelY, accelZ);
-      
         manage_time();
+        write_flash();
         
         paquet_donnees[index_packet] = read_distance();
         memcpy(UDP_Send_Buffer,paquet_donnees,40*sizeof(int));
         UDP_Send_Packet = true;
         index_packet++;
+        
         if (index_packet == 40)
         {
             index_packet = 0;

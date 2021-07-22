@@ -60,8 +60,11 @@ int distance = 0;
 int counter_time = 0;
 int count2= 0;
 int compteur_eco = 0;
+int iflash = 0;          //compteur pour remplir le paquet de la flash
+int iflash_interne = 0;  //compteur interne pour la flash
+char paquet_flash[204];
 
-void affichagePmodLed(int diff);float fGRangeLSB;   // global variable used to pre-compute the value in g corresponding to each count of the raw value
+void affichagePmodLed(int diff);
 void fct_writeText(char *string, int line, int index);
 void fct_swCheck(int sw);
 void fct_btnCheck(void);
