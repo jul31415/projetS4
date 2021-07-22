@@ -69,6 +69,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include "swt.h"
 #include "btn.h"
 #include <math.h>
+#include "spiflash.h"
 
 #include "pmods.h"
 
@@ -222,6 +223,7 @@ void MAIN_Initialize ( void )
     BTN_Init();
     PMODS_InitPin(1, 3, 1, 0, 0);
     PMODS_InitPin(1, 2, 0, 0, 0);
+    SPIFLASH_Init();
 }
 
 

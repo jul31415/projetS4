@@ -18,6 +18,7 @@
 #include "btn.h"
 #include "swt.h"
 #include "led.h"
+#include "spiflash.h"
 
 
 
@@ -89,7 +90,7 @@ void projet_tasks(int accelX, int accelY, int accelZ)
     
     
     //Calcul theta (Orientation Verticale)
-    if (values.acl != 0)
+    if (values.acl > 10)
     {
         values.theta = acos((float)values.acl_z_dif / (float)values.acl);
         values.theta = (PI/2) - values.theta;
@@ -101,14 +102,14 @@ void projet_tasks(int accelX, int accelY, int accelZ)
     }
 
     //Calcul phi (Orientation Horizontale)
-    if (values.acl_x_dif != 0)
+    if (values.acl_x_dif != 0 && values.acl > 10)
     {
         values.phi = atan((float)values.acl_y_dif / (float)values.acl_x_dif);
         values.phi = values.phi * 360 / (2*PI);
     }
     else 
     {
-        if (values.acl_y_dif != 0)
+        if (values.acl_y_dif > 5)
         {
             values.phi = PI / 2;
         }
@@ -264,21 +265,25 @@ int read_distance(void)
     PMODS_SetValue(1, 2, 1);
     delay1us(10);
     PMODS_SetValue(1, 2, 0);
-    while (PMODS_GetValue(1, 3) == 0)// && stuck < 1000000)
+    while (PMODS_GetValue(1, 3) == 0 && stuck < 10000)
     {
         stuck ++;
     }
-    while (PMODS_GetValue(1, 3) == 1)
+    while (PMODS_GetValue(1, 3) == 1 && stuck < 10000)
     {
         cpt_distance++;
         delay1us(5);
+        stuck ++;
     }
     
-//    if (stuck == 1000000)
-//    {
-//        values.distance = -1;
-//        return(-1);
-//    }
+    if (stuck == 10000)
+    {
+        
+        values.distance = -1;
+        return(-1);
+    }
+
+ 
 
    // final_distance = cpt_distance * 5 * 0,034/2;   //Distance = duration * 0,034/2
     values.distance = cpt_distance / 17;

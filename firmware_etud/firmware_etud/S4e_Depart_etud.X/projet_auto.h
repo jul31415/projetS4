@@ -69,6 +69,7 @@ void projet_tasks(int accelX, int accelY, int accelZ);
 void fct_writeText2(char *string, char *string2);
 int read_distance(void);
 void manage_time(void);
+void write_flash(void);
 
 
 
