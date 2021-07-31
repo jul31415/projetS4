@@ -390,6 +390,10 @@ void write_flash(void)
         paquet_flash[3] = values.time >> 0 & 0xff;
         
         SPIFLASH_ProgramPage(iflash_interne, paquet_flash, 204);
+        //test de la flash
+        //SPIFLASH_Read(iflash_interne, testFlash, 204);
+        
+        
         iflash_interne += 204;
 
         iflash = 0;

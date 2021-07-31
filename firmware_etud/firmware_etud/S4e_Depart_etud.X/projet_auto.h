@@ -63,6 +63,7 @@ int compteur_eco = 0;
 int iflash = 0;          //compteur pour remplir le paquet de la flash
 int iflash_interne = 0;  //compteur interne pour la flash
 char paquet_flash[204];
+unsigned char testFlash[204];
 
 void affichagePmodLed(int diff);
 void fct_writeText(char *string, int line, int index);
