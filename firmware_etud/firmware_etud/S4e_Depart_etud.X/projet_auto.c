@@ -175,6 +175,7 @@ void fct_swCheck(int sw)
 
         case (2): //Accelerometre x y z
             sprintf(buffer, "XYZ:%d %d %d",values.acl_x_dif, values.acl_y_dif , values.acl_z_dif );
+            sprintf(buffer2, " ");
             break;
 
         case (4): //Accelerometre x
@@ -194,6 +195,7 @@ void fct_swCheck(int sw)
 
         case (32): //Accelerometre magnitude
             sprintf(buffer, "Mag:%d", values.acl);
+            sprintf(buffer2, " ");
             //sprintf(buffer2, "AVG:%d", values.weighted_avg);
             break;
 
@@ -214,6 +216,7 @@ void fct_swCheck(int sw)
                
         default:
             sprintf(buffer, "Time :%.2d:%.2d:%.2d", values.current_time.hour, values.current_time.minute, values.current_time.second);
+            sprintf(buffer2, " ");
             break;
     }
     fct_writeText2(buffer, buffer2); 
