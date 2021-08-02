@@ -429,28 +429,28 @@ void pmod_distance(int distance)
 {    
     values.weighted_distance = values.weighted_distance + distance;
     values.weighted_distance = values.weighted_distance / 2;
-    if (distance < 50)
-    {
-        PMODS_SetValue(1, 7, 0);
-        PMODS_SetValue(1, 8, 0);
-    }
-    
-    else if (distance >= 50 && distance < 100)
+    if (distance < 20)
     {
         PMODS_SetValue(1, 7, 1);
-        PMODS_SetValue(1, 8, 0);
+        PMODS_SetValue(1, 8, 1); 
     }
     
-    else if (distance >= 100 && distance < 150)
+    else if (distance >= 20 && distance < 40)
     {
         PMODS_SetValue(1, 7, 0);
         PMODS_SetValue(1, 8, 1);
     }
     
-    else if (distance >= 150)
+    else if (distance >= 40 && distance < 60)
     {
         PMODS_SetValue(1, 7, 1);
-        PMODS_SetValue(1, 8, 1);
+        PMODS_SetValue(1, 8, 0);
+    }
+    
+    else if (distance >= 60)
+    {
+        PMODS_SetValue(1, 7, 0);
+        PMODS_SetValue(1, 8, 0);
     }
     
     else //Capteur débranché    
