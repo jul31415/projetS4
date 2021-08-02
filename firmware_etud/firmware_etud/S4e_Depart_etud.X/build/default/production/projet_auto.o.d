@@ -358,7 +358,8 @@ build/default/production/projet_auto.o: projet_auto.c projet_auto.h \
  ../src/system_config/default/framework/tcpip/tftps.h \
  ../src/system_config/default/framework/driver/ethmac/drv_ethmac.h \
  ../src/main.h ../src/lcd.h ../src/ssd.h ../src/app_commands.h pmods.h \
- utils.h ../src/btn.h ../src/swt.h ../src/led.h ../src/config.h
+ utils.h ../src/btn.h ../src/swt.h ../src/led.h ../src/config.h \
+ spiflash.h
 
 projet_auto.h:
 
@@ -1103,3 +1104,5 @@ utils.h:
 ../src/led.h:
 
 ../src/config.h:
+
+spiflash.h:

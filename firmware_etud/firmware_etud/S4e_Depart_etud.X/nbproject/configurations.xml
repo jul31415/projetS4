@@ -14,6 +14,7 @@
           <itemPath>../src/swt.h</itemPath>
           <itemPath>../src/btn.h</itemPath>
           <itemPath>../src/pmods.h</itemPath>
+          <itemPath>../src/spiflash.h</itemPath>
         </logicalFolder>
         <logicalFolder name="f1" displayName="system_config" projectFiles="true">
           <logicalFolder name="f1" displayName="default" projectFiles="true">
@@ -210,6 +211,7 @@
           <itemPath>../src/swt.c</itemPath>
           <itemPath>../src/btn.c</itemPath>
           <itemPath>../src/pmods.c</itemPath>
+          <itemPath>../src/spiflash.c</itemPath>
         </logicalFolder>
         <logicalFolder name="f1" displayName="system_config" projectFiles="true">
           <logicalFolder name="f1" displayName="default" projectFiles="true">

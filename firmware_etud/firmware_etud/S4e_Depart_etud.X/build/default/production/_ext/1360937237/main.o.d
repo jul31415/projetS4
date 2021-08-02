@@ -366,7 +366,7 @@ build/default/production/_ext/1360937237/main.o: ../src/main.c \
  ../src/system_config/default/framework/driver/spi/src/drv_spi_variant_mapping.h \
  ../src/UDP_app.h ../src/led.h ../src/config.h ../src/ssd.h \
  ../src/accel.h ../src/lcd.h ../src/app_commands.h ../src/swt.h \
- ../src/btn.h ../src/pmods.h
+ ../src/btn.h ../src/spiflash.h ../src/pmods.h
 
 ../src/projet_auto.h:
 
@@ -1119,5 +1119,7 @@ build/default/production/_ext/1360937237/main.o: ../src/main.c \
 ../src/swt.h:
 
 ../src/btn.h:
+
+../src/spiflash.h:
 
 ../src/pmods.h:

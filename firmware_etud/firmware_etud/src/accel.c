@@ -116,7 +116,7 @@ void accel_tasks()
         projet_tasks(accelX, accelY, accelZ);
         manage_time();
         write_flash();
-        
+               
         paquet_donnees[index_packet] = read_distance();
         memcpy(UDP_Send_Buffer,paquet_donnees,40*sizeof(int));
         UDP_Send_Packet = true;

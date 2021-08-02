@@ -68,6 +68,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include "app_commands.h"
 #include "swt.h"
 #include "btn.h"
+#include "spiflash.h"
 #include <math.h>
 #include "spiflash.h"
 
@@ -221,9 +222,13 @@ void MAIN_Initialize ( void )
     SSD_Init();
     SWT_Init();
     BTN_Init();
+    SPIFLASH_Init();
+    
     PMODS_InitPin(1, 3, 1, 0, 0);
     PMODS_InitPin(1, 2, 0, 0, 0);
-    SPIFLASH_Init();
+    PMODS_InitPin(1, 7, 0, 0, 0);
+    PMODS_InitPin(1, 8, 0, 0, 0);
+    
 }
 
 

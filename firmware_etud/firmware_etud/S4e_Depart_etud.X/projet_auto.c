@@ -128,6 +128,12 @@ void projet_tasks(int accelX, int accelY, int accelZ)
     
     values.speed_y = (values.acl_y_dif * 0.640) + values.speed_mem_y;
     values.speed_mem_y = values.speed_y;
+    
+
+    //Moyenne pondéré distance
+    values.weighted_distance = values.weighted_distance + read_distance();
+    values.weighted_distance = values.weighted_distance / 2;
+    pmod_distance(values.weighted_distance);
             
     if (count2 == 6)
     {
@@ -164,7 +170,7 @@ void fct_swCheck(int sw)
     char buffer2[0xFF];
     switch (sw)
     {
-        case(0)://indice écolo
+        case(0)://indice ï¿½colo
             sprintf(buffer, "Indice ecolo:");
             sprintf(buffer2, "%d",values.indice_eco/compteur_eco);
             break;
@@ -211,7 +217,7 @@ void fct_swCheck(int sw)
             
         case (129): //Distance
             sprintf(buffer, "Distance:%d", values.distance);
-            sprintf(buffer2," ");
+            sprintf(buffer2,"Dist pond :%d", values.weighted_distance);
             break;
                
         default:
@@ -269,6 +275,7 @@ void fct_btnCheck(void)
 
     else if (BTN_value == 4)  //CENTER
     {
+        clear_flash();
         while (BTN_GetGroupValue() == 4){};
     }  
 
@@ -356,7 +363,7 @@ void manage_time(void)
 
 void write_flash(void)
 {
-    paquet_flash[iflash*4 + 4] = values.acl >> 24 & 0xff;  //module accélération
+    paquet_flash[iflash*4 + 4] = values.acl >> 24 & 0xff;  //module accï¿½lï¿½ration
     paquet_flash[iflash*4 + 5] = values.acl >> 16 & 0xff; 
     paquet_flash[iflash*4 + 6] = values.acl >> 8 & 0xff;
     paquet_flash[iflash*4 + 7] = values.acl >> 0 & 0xff;
@@ -378,7 +385,7 @@ void write_flash(void)
     paquet_flash[iflash*4 + 126] = values.speed_x >> 8 & 0xff;
     paquet_flash[iflash*4 + 127] = values.speed_x >> 0 & 0xff;
             
-    paquet_flash[iflash*4 + 164] = values.indice_eco >> 24 & 0xff; //indice écologique
+    paquet_flash[iflash*4 + 164] = values.indice_eco >> 24 & 0xff; //indice ï¿½cologique
     paquet_flash[iflash*4 + 165] = values.indice_eco >> 16 & 0xff; 
     paquet_flash[iflash*4 + 166] = values.indice_eco >> 8 & 0xff;
     paquet_flash[iflash*4 + 167] = values.indice_eco >> 0 & 0xff;
@@ -394,12 +401,62 @@ void write_flash(void)
         
         SPIFLASH_ProgramPage(iflash_interne, paquet_flash, 204);
         //test de la flash
-        //SPIFLASH_Read(iflash_interne, testFlash, 204);
+        //read_flash
         
         
         iflash_interne += 204;
 
         iflash = 0;
+    }
+}
+
+void clear_flash()
+{
+    char buffer1 = "Clearing Flash";
+    char buffer2 = " ";
+    
+    fct_writeText2(buffer1, buffer2);
+    SPIFLASH_EraseAll();
+}
+
+void read_flash(int* array)
+{
+    SPIFLASH_Read(iflash_interne, testFlash, 204);
+}
+
+
+void pmod_distance(int distance)
+{    
+    values.weighted_distance = values.weighted_distance + distance;
+    values.weighted_distance = values.weighted_distance / 2;
+    if (distance < 50)
+    {
+        PMODS_SetValue(1, 7, 0);
+        PMODS_SetValue(1, 8, 0);
+    }
+    
+    else if (distance >= 50 && distance < 100)
+    {
+        PMODS_SetValue(1, 7, 1);
+        PMODS_SetValue(1, 8, 0);
+    }
+    
+    else if (distance >= 100 && distance < 150)
+    {
+        PMODS_SetValue(1, 7, 0);
+        PMODS_SetValue(1, 8, 1);
+    }
+    
+    else if (distance >= 150)
+    {
+        PMODS_SetValue(1, 7, 1);
+        PMODS_SetValue(1, 8, 1);
+    }
+    
+    else //Capteur débranché    
+    {
+        PMODS_SetValue(1, 7, 0);
+        PMODS_SetValue(1, 8, 0);
     }
 }
 

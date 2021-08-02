@@ -49,6 +49,7 @@ struct values{
     int indice_eco;
     
     int distance;
+    int weighted_distance;
     
 };
 
@@ -74,6 +75,9 @@ void fct_writeText2(char *string, char *string2);
 int read_distance(void);
 void manage_time(void);
 void write_flash(void);
+void clear_flash(void);
+void read_flash(int* array);
+void pmod_distance(int distance);
 
 
 
